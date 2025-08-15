@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/Axiosinstance';
 import { API_PATHS } from '../../utils/apiPath';
 import uploadImage from '../../utils/imageUploder';
+import { UserContext } from '../../context/usercontext';
 
 
 const SignUp = () => {
@@ -19,7 +20,7 @@ const SignUp = () => {
 
   const [error, setError] = useState("");
 
-  const {updateUser} = useContext(Usercontext);
+  const {updateUser} = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {

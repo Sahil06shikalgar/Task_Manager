@@ -10,7 +10,7 @@ import UserDashboard from './pages/Users/UserDashboard';
 import Mytask from './pages/Users/Mytask';
 import ViewTaskDetails from './pages/Users/ViewTaskDeatils';
 import PrivateRoutes from './Routes/PrivateRoutes';
-import UserProvider, { Usercontext } from './context/usercontext';
+import UserProvider, { UserContext } from '/src/context/usercontext.jsx';
 
 
 
@@ -51,7 +51,7 @@ const App = () => {
 export default App
 
 const Root = () => {
-  const {user,loading}=useContext(Usercontext);
+  const {user,loading}=useContext(UserContext);
 
   if(loading) return <Outlet/>
 

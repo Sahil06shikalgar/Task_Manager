@@ -5,6 +5,7 @@ import Input from '../../Component/Inputs/input';
 import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/Axiosinstance';
 import { API_PATHS } from '../../utils/apiPath';
+import { UserContext } from '../../context/usercontext';
 
 
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { updateUser } = useContext(Usercontext);
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
