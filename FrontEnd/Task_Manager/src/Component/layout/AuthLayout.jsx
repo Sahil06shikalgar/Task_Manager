@@ -1,18 +1,22 @@
-import React from 'react';
-import UI_img from '../../assets/Images/img-2.png';
+import React from "react";
+import UI_img from "../../assets/Images/img-2.png";
 
 const AuthLayout = ({ children }) => {
   return (
-    <div className="flex">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Left Section */}
-      <div className="w-screen h-[72vh] md:w-[60vw] px-12 pt-8 pb-12">
-        <h2 className="text-lg font-medium text-black">Task Manager</h2>
-        {children} {/* This renders whatever is passed inside AuthLayout */}
+      <div className="w-full md:w-[60%] px-6 sm:px-12 py-8 flex flex-col">
+        <h2 className="text-lg font-medium text-black mb-6">Task Manager</h2>
+        <div className="flex-1 flex items-center justify-center">{children}</div>
       </div>
 
       {/* Right Section */}
-      <div className="overflow-hidden md:flex w-[40vw] h-screen items-center justify-center">
-        <img src={UI_img} alt="UI illustration" className="w-64 lg:w-[100%]" />
+      <div className="hidden md:flex w-[40%] h-screen items-center justify-center bg-gray-50">
+        <img
+          src={UI_img}
+          alt="UI illustration"
+          className="w-64 lg:w-full object-contain"
+        />
       </div>
     </div>
   );
