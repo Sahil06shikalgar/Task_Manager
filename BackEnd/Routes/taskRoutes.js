@@ -15,8 +15,8 @@ router.get("/:id",protect,getTaskById);
 router.post("/",protect,adminonly,createTask);
 router.put("/:id",protect,adminonly,updateTask);
 router.delete("/:id",protect,adminonly,deleteTask);
-router.put("/:id/status",protect,adminonly,updateTaskStatus);
-router.put("/:id/todo",protect,adminonly,updateTaskChecklist);
+router.put("/:id/status",protect,updateTaskStatus);
+router.put("/:id/todo",protect,updateTaskChecklist);
 
 module.exports = router;
 

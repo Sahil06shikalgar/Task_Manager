@@ -1,11 +1,11 @@
-import React, {  use, useContext } from 'react'
+import React, {  use, useContext, useEffect } from 'react'
 import { UserContext } from '../context/usercontext';
 import { useNavigate } from 'react-router-dom';
 
 const useUserAuth = () => {
 
 
-    const{user,loading,clearuser}= useContext(UserContext);
+    const{user,loading,clearUser}= useContext(UserContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const useUserAuth = () => {
         if(user) return;
 
         if(!user){
-            clearuser();
+            clearUser();
         }
 
         if (!loading) {
@@ -23,10 +23,9 @@ const useUserAuth = () => {
     }, [loading, user, navigate]);
 
   return (
-    <>
-    {loading && <div>Loading...</div>}
-    {!loading && user && <div>Welcome {user.name}</div>}
-    </>
+  <div>
+
+  </div>
   )
 }
 

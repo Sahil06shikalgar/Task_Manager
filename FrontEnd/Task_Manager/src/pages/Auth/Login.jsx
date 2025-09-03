@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import AuthLayout from '../../Component/layout/AuthLayout';
+import AuthLayout from '../../Component/layout/AuthLayout.jsx';
 import { Link, useNavigate } from 'react-router-dom';
-import Input from '../../Component/Inputs/input';
+import Input from '../../Component/Inputs/Input.jsx';
 import { validateEmail } from '../../utils/helper';
 import axiosInstance from '../../utils/Axiosinstance';
 import { API_PATHS } from '../../utils/apiPath';
@@ -37,7 +37,10 @@ const Login = () => {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
         password,
+
       });
+
+      console.log(response.data);
 
       const{token,role}=response.data;
       updateUser(response.data);

@@ -1,5 +1,6 @@
 export const BASE_URL = "http://localhost:8000";
 
+
 //utils/apiPath.js
 
 export const API_PATHS = {
@@ -11,7 +12,7 @@ export const API_PATHS = {
   },
 
   USERS: {
-    GET_ALL_USERS: "/api/users", // Get all users (Admin only)
+    GET_ALL_USERS: "/api/user", // Get all users (Admin only)
     GET_USER_BY_ID: (userId) => `/api/users/${userId}`, // Get user by ID
     CREATE_USER: "/api/users", // Create a new user (Admin only)
     UPDATE_USER: (userId) => `/api/users/${userId}`, // Update user details
@@ -19,16 +20,16 @@ export const API_PATHS = {
   },
 
   TASKS: {
-    GET_DASHBOARD_DATA: "/api/tasks/dashboard-data", // Get Dashboard Data
-    GET_USER_DASHBOARD_DATA: "/api/tasks/user-dashboard-data", // Get User Dashboard Data
-    GET_ALL_TASKS: "/api/tasks", // Get all tasks (Admin only)
-    GET_TASK_BY_ID: (taskId) => `/api/tasks/${taskId}`, // Get task by ID
-    CREATE_TASK: "/api/tasks", // Create a new task (Admin only)
-    UPDATE_TASK: (taskId) => `/api/tasks/${taskId}`, // Update task details
-    DELETE_TASK: (taskId) => `/api/tasks/${taskId}`, // Delete a task (Admin only)
+    GET_DASHBOARD_DATA: "/api/task/dashboard-data", // Get Dashboard Data
+    GET_USER_DASHBOARD_DATA: "/api/task/userdashboard-data", // Get User Dashboard Data
+    GET_ALL_TASKS: "/api/task", // Get all tasks (Admin only)
+    GET_TASK_BY_ID: (taskId) => `/api/task/${taskId}`, // Get task by ID
+    CREATE_TASK: "/api/task", // Create a new task (Admin only)
+    UPDATE_TASK: (taskId) => `/api/task/${taskId}`, // Update task details
+    DELETE_TASK: (taskId) => `/api/task/${taskId}`, // Delete a task (Admin only)
 
-    UPDATE_TASK_STATUS: (taskId) => `/api/tasks/${taskId}/status`, // Update task status
-    UPDATE_TODO_CHECKLIST: (taskId) => `/api/tasks/${taskId}/todo`, // Update todo checklist
+    UPDATE_TASK_STATUS: (taskId) => `/api/task/${taskId}/status`, // Update task status
+    UPDATE_TODO_CHECKLIST: (taskId) => `/api/task/${taskId}/todo`, // Update todo checklist
 
   },
   REPORTS: {
@@ -38,5 +39,7 @@ export const API_PATHS = {
 
 IMAGE: {
   UPLOAD_IMAGE: "/api/auth/upload-image",
+  
+  
 }
 };

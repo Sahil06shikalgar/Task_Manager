@@ -12,8 +12,6 @@ const registreUser= async (req, res) => {
     try{
         const { name, email, password,profileImageUrl,adminInviteToken } = req.body;
 
-        
-
         const userExists = await User.findOne({ email });
 
         if (userExists) {
@@ -45,13 +43,19 @@ const registreUser= async (req, res) => {
                 profileImageUrl: user.profileImageUrl,
                 role: user.role,
                 token: genratetoToken(user._id),
+                
             });
+
+           
+
+          
         } else {
             return res.status(400).json({ message: "Invalid user data" });
         }
     } catch (error) {
          console.error("Register Error:", error);
         return res.status(500).json({ message: "Server error" });
+        
     }   
 };
 
@@ -97,7 +101,6 @@ const getUserProfile = async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
-            profileImageUrl: user.profileImageUrl,
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,

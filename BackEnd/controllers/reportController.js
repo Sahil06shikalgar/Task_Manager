@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 const excelJS = require("exceljs");
+const User=require("../models/user");
 
 // @desc    Export all tasks as an Excel file
 // @route   GET /api/reports/export/tasks
@@ -97,7 +98,7 @@ const exportUsersReport = async (req, res) => {
               userTaskMap[userId].pendingTasks += 1;
             } else if (task.status === "In Progress") {
               userTaskMap[userId].inProgressTasks += 1;
-            } else if (task.status === "Completed") {
+            } else if (task.status === "Done") {
               userTaskMap[userId].completedTasks += 1;
             }
           }

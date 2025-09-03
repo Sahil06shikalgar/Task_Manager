@@ -29,7 +29,7 @@ const getTaskList = async (req, res) => {
       );
     }
 
-    // Add completed todoChecklist count to each task
+    // Add completed todoChecklist count
     tasks = await Promise.all(
       tasks.map(async (task) => {
         const completedCount = task.todoChecklist.filter(
@@ -39,27 +39,24 @@ const getTaskList = async (req, res) => {
       })
     );
 
-    // Status summary counts
-    const allTasks = await Task.countDocuments(
-      req.user.role === "admin" ? {} : { assignedTo: req.user._id }
-    );
+    
+    const baseUserFilter = req.user.role === "admin" ? {} : { assignedTo: req.user._id };
+
+    const allTasks = await Task.countDocuments(baseUserFilter);
 
     const pendingTasks = await Task.countDocuments({
-      ...filter,
+      ...baseUserFilter,
       status: "Pending",
-      ...(req.user.role !== "admin" && { assignedTo: req.user._id }),
     });
 
     const inProgressTasks = await Task.countDocuments({
-      ...filter,
+      ...baseUserFilter,
       status: "In Progress",
-      ...(req.user.role !== "admin" && { assignedTo: req.user._id }),
     });
 
     const completedTasks = await Task.countDocuments({
-      ...filter,
-      status: "Completed",
-      ...(req.user.role !== "admin" && { assignedTo: req.user._id }),
+      ...baseUserFilter,
+      status: "Done",
     });
 
     res.json({
@@ -75,6 +72,7 @@ const getTaskList = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 
@@ -96,38 +94,53 @@ const getTaskById= async (req,res)=>{
 //@routes POST /api/tasks/
 //@Access Private
 
-const createTask=async(req,res)=>{
-    try{
-        const { title, description, priority, dueDate, assignedTo, attachments, todoChecklist } = req.body;
-        const task = new Task({
-            title,
-            description,
-            priority,
-            dueDate,
-            assignedTo,
-            attachments,
-            todoChecklist,
-        });
-        if(!Array.isArray(assignedTo)){
-            return res.status(400).json({ message: "assignedTo must be an array of user IDs" });
-        }
+const createTask = async (req, res) => {
+  try {
+    const { 
+      title, 
+      description, 
+      priority, 
+      dueDate, 
+      assignedTo, 
+      attachments = [], 
+      todoCheckList = [] 
+    } = req.body;
 
-        const tasks = await Task.create({
-            title,
-            description,
-            priority,
-            dueDate,
-            assignedTo,
-            createdBy: req.user.id,
-            todoChecklist,
-            attachments
-            
-        });
-        res.status(201).json({ message: "Task created successfully", tasks });
-    }catch (error) {
-        res.status(500).json({ message: "Server Error", error: error.message });
+    // Validate required fields
+    if (!title || !description || !priority || !dueDate) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
-}
+
+    // Validate assignedTo
+    if (!Array.isArray(assignedTo)) {
+      return res.status(400).json({ message: "assignedTo must be an array of user IDs" });
+    }
+
+    // Create the task
+    const newTask = await Task.create({
+      title,
+      description,
+      priority,
+      dueDate,
+      assignedTo,
+      createdBy: req.user.id,
+      todoChecklist: todoCheckList, 
+      attachments
+    });
+
+    return res.status(201).json({
+      message: "Task created successfully",
+      task: newTask
+    });
+
+  } catch (error) {
+    console.error("Error creating task:", error); // Log full error
+    return res.status(500).json({
+      message: "Server Error",
+      error: error.message
+    });
+  }
+};
 
 //@desc update task
 //@routes PUT /api/tasks/:id

@@ -12,7 +12,7 @@ const TaskSchema = new mangoose.Schema({
     priority: { type: String, enum: ["Low", "Medium", "High"], default: "Medium" },
     status: { type: String, enum: ["Pending", "In-Progress", "Done"], default: "Pending" },
     dueDate: { type: Date, required: true },
-    assignedTo: { type: mangoose.Schema.Types.ObjectId, ref: "User", required: true },
+    assignedTo: [{ type: mangoose.Schema.Types.ObjectId, ref: "User", required: true }],
     createdBy: { type: mangoose.Schema.Types.ObjectId, ref: "User", required: true },
      attachments: [{
     fileName: { type: String, required: true },

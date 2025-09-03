@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Outlet, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import Dashboard from './pages/Admin/DashBoard';
@@ -11,11 +11,13 @@ import Mytask from './pages/Users/Mytask';
 import ViewTaskDetails from './pages/Users/ViewTaskDeatils';
 import PrivateRoutes from './Routes/PrivateRoutes';
 import UserProvider, { UserContext } from '/src/context/usercontext.jsx';
+import { Toaster } from 'react-hot-toast';
 
 
 
 const App = () => {
   return (
+   
    <UserProvider>
     <div>
       <Router>
@@ -27,7 +29,7 @@ const App = () => {
             <Route element={<PrivateRoutes allowedRoles={['Admin']} />} >
             <Route path='/admin/dashboard' element={<Dashboard />} />
             <Route path='/admin/tasks' element={<ManageTask />} />
-            <Route path='/admin/create-tasks' element={<CreateTask />} />
+            <Route path='/admin/create-task' element={<CreateTask />} />
             <Route path='/admin/users' element={<ManageUser />} />
             </Route>
             
@@ -44,7 +46,20 @@ const App = () => {
         </Routes>
       </Router>
     </div>
+
+    <Toaster 
+    toastOptions={{
+      className:"",
+      style:{
+        fontSize:"13px",
+    },}
+    }
+    />
+
+    
     </UserProvider>
+
+    
   )
 }
 

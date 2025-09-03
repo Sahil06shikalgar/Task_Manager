@@ -5,7 +5,7 @@ import { API_PATHS } from '../utils/apiPath';
 export const UserContext = createContext(); 
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,9 +19,11 @@ const UserProvider = ({ children }) => {
 
     const fetchUser = async () => {
       try {
-        const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
+        const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);//
+        
         if (response && response.data) {
           setUser(response.data);
+         
         } else {
           console.error('No user data received', response);
         }
